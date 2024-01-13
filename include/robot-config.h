@@ -1,22 +1,50 @@
+#pragma once
 #include "main.h"
 
-pros::Motor leftFrontMotor(1, pros::E_MOTOR_GEAR_BLUE, false);
-pros::Motor leftBackMotor(2, pros::E_MOTOR_GEAR_BLUE, false);
-pros::Motor rightFrontMotor(3, pros::E_MOTOR_GEAR_BLUE, false);
-pros::Motor rightBackMotor(4, pros::E_MOTOR_GEAR_BLUE, false);
+pros::Controller controller(pros::E_CONTROLLER_MASTER);
+#define INTAKE_FORWARD DIGITAL_R1
+#define INTAKE_REVERSE DIGITAL_R2
 
-pros::Motor_Group leftMotors({leftFrontMotor, leftBackMotor});
-pros::Motor_Group rightMotors({rightFrontMotor, rightBackMotor});
+#define CATA_FORWARD DIGITAL_L1
+#define CATA_REVERSE DIGITAL_L2
 
-pros::Motor catapultMotor(5, pros::E_MOTOR_GEAR_RED, false);
-pros::Motor intakeMotor(6, pros::E_MOTOR_GEAR_GREEN, false);
+pros::Motor leftFrontMotor(10, pros::E_MOTOR_GEAR_BLUE, true);
+pros::Motor leftBackMotor(9, pros::E_MOTOR_GEAR_BLUE, true);
+pros::Motor leftBackTopMotor(8, pros::E_MOTOR_GEAR_BLUE, false);
+pros::Motor rightFrontMotor(1, pros::E_MOTOR_GEAR_BLUE, false);
+pros::Motor rightBackMotor(2, pros::E_MOTOR_GEAR_BLUE, false);
+pros::Motor rightBackTopMotor(3, pros::E_MOTOR_GEAR_BLUE, true);
 
+pros::Motor_Group leftMotors({leftFrontMotor, leftBackMotor, leftBackTopMotor});
+pros::Motor_Group rightMotors({rightFrontMotor, rightBackMotor, rightBackTopMotor});
+
+pros::Motor_Group leftAuton({leftFrontMotor, leftBackMotor});
+pros::Motor_Group rightAuton({rightFrontMotor, rightBackMotor});
+
+pros::Motor_Group leftAutonSmall({leftFrontMotor});
+pros::Motor_Group rightAutonSmall({rightFrontMotor});
+
+pros::Motor intakeLever(7, pros::E_MOTOR_GEAR_RED, false);
+pros::Motor flywheelMotor(4, pros::E_MOTOR_GEAR_BLUE, false);
+
+pros::ADIDigitalOut wings(1);
+
+pros::Imu imu(11);
+         
 lemlib::Drivetrain_t drivetrain {
-    &leftMotors,
-    &rightMotors,
+    &leftAuton,
+    &rightAuton,
     11.2, // track width
     4, // wheel diameter
     343, // wheel rpm
+};
+
+lemlib::Drivetrain_t drivetrainSmall {
+    &leftAutonSmall,
+    &rightAutonSmall,
+    11.2,
+    4,
+    343,
 };
 
 // TODO: Figure out sensor siuation
@@ -25,13 +53,13 @@ lemlib::OdomSensors_t sensors {
     nullptr, // vertical tracking wheel 2
     nullptr, // horizontal tracking wheel 1
     nullptr, // horizontal track wheel 2
-    nullptr // intertial sensor
+    &imu // intertial sensor
 };
 
 // forward/backward PID
 lemlib::ChassisController_t lateralController {
-    8, // kP
-    30, // kD
+    45, // kP
+    100, // kD
     1, // smallErrorRange
     100, // smallErrorTimeout
     3, // largeErrorRange
@@ -51,3 +79,4 @@ lemlib::ChassisController_t angularController {
 };
 
 lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
+lemlib::Chassis chassisSmall(drivetrainSmall, lateralController, angularController, sensors);

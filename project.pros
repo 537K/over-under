@@ -332,8 +332,9 @@
       }
     },
     "upload_options": {
-      "description": "sticking out your gyatt for the rizzler",
-      "icon": "pros"
+      "description": "v2",
+      "icon": "pros",
+      "slot": 3
     }
   }
 }
