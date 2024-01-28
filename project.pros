@@ -333,8 +333,8 @@
     },
     "upload_options": {
       "description": "v2",
-      "icon": "pros",
-      "slot": 3
+      "icon": "alien",
+      "slot": 1
     }
   }
 }

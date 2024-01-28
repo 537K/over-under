@@ -25,7 +25,7 @@ void screen() {
  */
 void initialize() {
 	pros::lcd::initialize();
-	pros::lcd::print(1, "sussy balls 3");
+	pros::lcd::print(1, "running");
 
 	chassis.calibrate();
 	chassis.setPose(0, 0, 0); // X: 0, Y: 0, Heading: 0
@@ -84,39 +84,136 @@ void skillsSRR() {
 	}
 }
 
-void skills() {
-	intakeLever.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	chassis.setPose(0, 0, 0, false);
-	chassis.moveTo(0, 10, 1000);
-}
 
 void raiseStick() {
 	intakeLever.move_relative(-2900, 100);
 }
 
 void skillsPNW() {
+
+	intakeLever.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	chassis.setPose(0, 0, 0, false);
 	chassis.moveTo(0, -25, 1000);
 	chassis.moveTo(0, 0, 1000);
 	chassis.setPose(0, 0, false);
-	chassis.turnTo(-60, 0, 1000);
+	chassis.turnTo(60, 0, 1000);
 	chassis.setPose(0, 0, 0, false);
 	chassis.moveTo(0, 7, 1000);
 	chassis.setPose(0, 0, 0, false);
 	//chassis.turnTo(-11.5, -11.5, 1000);
 	
-	intakeLever.move_relative(-2900, 100);
-	chassis.moveTo(0, 5, 1000);
-	pros::delay(2000);
+	intakeLever.move_relative(-2700, 100);
+	pros::delay(1000);
+	//chassis.moveTo(0, 10, 1000);
 	chassis.setPose(0, 0, 0, false);
-	pros::delay(2000);
-	intakeLever.move_relative(2800, 100);
+	chassis.turnTo(1, 1, 1000);
+	chassis.setPose(0, 0, 0, false);
+	chassis.moveTo(0, 2, 1000);
+	flywheelMotor.move(-127);
+	pros::delay(39000);
+	chassis.setPose(0, 0, 0, 1000);
+	chassis.turnTo(-3, 1, 1000);
+	flywheelMotor.move(0);
+	intakeLever.move_relative(2400, 100);
 
-	chassis.turnTo(60, 0, 1000);
-	chassis.setPose(0, 0, 1000);
-	chassis.turnTo(30, 30, 1000);
+	chassis.setPose(0, 0, 0, false);
+	chassis.moveTo(0, -100, 1000);
+	chassis.setPose(0, 0, 0, false);
+	chassis.turnTo(-60, -20, 1000);
+	chassis.setPose(0, 0, 0, false);
+	chassis.moveTo(0, 5000, 1000, 200.0);
+	wings.set_value(1);
+	chassis.moveTo(0, 10000, 1000);
+	
+// 	chassis.turnTo(-100, -110, 1000);
+// 	chassis.setPose(0, 0, 0, false);
+// 	pros::delay(1000);
+// 	//chassis.turnTo(-25, 30, 1000);
+// 	intakeLever.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+// 	chassis.setPose(0, 0, 0, false);
+// 	//chassis.turnTo(-60, 5, 1000);
+// 	chassis.setPose(0, 0, 0, false);
+// 	//chassis.turnTo(1, 1, 1000);	//chassis.turnTo(-10, 10, 1000);
+
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.moveTo(0, 200, 1000);
+// 	pros::delay(1000);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.turnTo(-60, 0, 1000);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.moveTo(0, 20, 1000);
+// 	pros::delay(1000);
+// 	wings.set_value(1);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.turnTo(-60, 0, 1000);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.moveTo(0, 24, 1000);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.turnTo(60, 0, 1000);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.moveTo(0, 27, 1000);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.turnTo(60, 0, 1000);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.moveTo(0, 40, 1000);
+// 	pros::delay(1000);
+// 	chassis.moveTo(0, 0, 1000);
+// }
+
+// void farSide() {
+// 	intakeLever.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+// 	wings.set_value(1);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.moveTo(0, -40, 1000);
+// 	chassis.moveTo(0, 0, 1000);
+// 	wings.set_value(0);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.turnTo(60, 30, 1000);
+	
+// 	// chassis.setPose(0, 0, 0, false);
+// 	// chassis.moveTo(0, 30, 1000);
+
+// 	intakeLever.move_relative(-1200, 100);
+// 	chassis.setPose(0, 0, 0, false);
+// 	chassis.moveTo(0, 30, 1000);
 }
 
+void closeSide(){
+	chassis.setPose(0, 0, 0, false);
+	chassis.moveTo(0, -25, 1000);
+	chassis.setPose(0, 0, 0, false);
+	pros::delay(1000);
+	//chassis.turnTo(28, 40, 1000);
+	chassis.setPose(0, 0, 0, false);
+	chassis.moveTo(0, 15, 1000);
+	//chassis.moveTo(0, 0, 1000);
+	//wings.set_value(1);
+
+	// chassis.setPose(0, 0, 0, false);
+	// chassis.moveTo(0, -100, 1000);
+	// chassis.setPose(0, 0, 0, false);
+	// chassis.turnTo(-60, -20, 1000);
+	// chassis.setPose(0, 0, 0, false);
+	// chassis.moveTo(0, 5000, 1000, 200.0);
+	// wings.set_value(1);
+	// chassis.moveTo(0, 10000, 1000);
+}
+
+void skillsFeb() {
+	chassis.setPose();
+}
+
+void farSideShort() {
+	intakeLever.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	wings.set_value(1);
+	chassis.setPose(0, 0, 0, false);
+	chassis.moveTo(0, -40, 1000);
+	//chassis.setPose(0, 0, 0, 1000);
+	//chassis.turnTo(-60, 0, 1000);
+	chassis.moveTo(0, 0, 1000);
+	wings.set_value(0);
+	chassis.setPose(0, 0, 0, false);
+}
 
 
 /**
@@ -131,10 +228,9 @@ void skillsPNW() {
  * from where it left off.
  */
 void autonomous() {
-	skillsPNW();
+	closeSide();
 	//raiseStick();
 }
-
 
 
 /**
@@ -151,17 +247,27 @@ void autonomous() {
  * task, not resume it from where it left off.
  */ 
 void opcontrol() {
+	int invert = 0;
 	leftMotors.set_brake_modes(pros::E_MOTOR_BRAKE_BRAKE);
 	rightMotors.set_brake_modes(pros::E_MOTOR_BRAKE_BRAKE);
 	intakeLever.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	//catapultMotor.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 	while (true) {
-		int power = controller.get_analog(ANALOG_LEFT_Y);
-		int turn = controller.get_analog(ANALOG_RIGHT_X);
-		int left = power + turn;
-		int right = power - turn;
-		leftMotors.move(left);
-		rightMotors.move(right);
+		if (invert == 0) {
+			int power = controller.get_analog(ANALOG_LEFT_Y);
+			int turn = controller.get_analog(ANALOG_RIGHT_X);
+			int left = power + turn;
+			int right = power - turn;
+			leftMotors.move(left);
+			rightMotors.move(right);
+		} else {
+			int power = -(controller.get_analog(ANALOG_LEFT_Y));
+			int turn = -(controller.get_analog(ANALOG_RIGHT_X));
+			int left = power + turn;
+			int right = power - turn;
+			leftMotors.move(left);
+			rightMotors.move(right);
+		}
 
 		
 		if (controller.get_digital(DIGITAL_R2)) {
@@ -177,9 +283,9 @@ void opcontrol() {
 		}
 
 		if (controller.get_digital(DIGITAL_UP)) {
-			intakeLever.move(127);
-		} else if (controller.get_digital(DIGITAL_DOWN)) {
 			intakeLever.move(-127);
+		} else if (controller.get_digital(DIGITAL_DOWN)) {
+			intakeLever.move(127);
 		} else {
 			intakeLever.move(0);
 		}
@@ -188,6 +294,14 @@ void opcontrol() {
 			wings.set_value(1);
 		} else if (controller.get_digital(DIGITAL_Y)) {
 			wings.set_value(0);
+		}
+
+		if (controller.get_digital(DIGITAL_A)) {
+			if (invert == 0) {
+				invert = 1;
+			} else {
+				invert = 0;
+			}
 		}
 
 		pros::delay(2);
