@@ -8,12 +8,12 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 #define CATA_FORWARD DIGITAL_L1
 #define CATA_REVERSE DIGITAL_L2
 
-pros::Motor leftFrontMotor(10, pros::E_MOTOR_GEAR_BLUE, true);
-pros::Motor leftBackMotor(9, pros::E_MOTOR_GEAR_BLUE, true);
-pros::Motor leftBackTopMotor(8, pros::E_MOTOR_GEAR_BLUE, false);
-pros::Motor rightFrontMotor(1, pros::E_MOTOR_GEAR_BLUE, false);
-pros::Motor rightBackMotor(2, pros::E_MOTOR_GEAR_BLUE, false);
-pros::Motor rightBackTopMotor(3, pros::E_MOTOR_GEAR_BLUE, true);
+pros::Motor leftFrontMotor(15, pros::E_MOTOR_GEAR_BLUE, true);
+pros::Motor leftBackMotor(12, pros::E_MOTOR_GEAR_BLUE, true);
+pros::Motor leftBackTopMotor(13, pros::E_MOTOR_GEAR_BLUE, false);
+pros::Motor rightFrontMotor(18, pros::E_MOTOR_GEAR_BLUE, false);
+pros::Motor rightBackMotor(20, pros::E_MOTOR_GEAR_BLUE, false);
+pros::Motor rightBackTopMotor(19, pros::E_MOTOR_GEAR_BLUE, true);
 
 pros::Motor_Group leftMotors({leftFrontMotor, leftBackMotor, leftBackTopMotor});
 pros::Motor_Group rightMotors({rightFrontMotor, rightBackMotor, rightBackTopMotor});
@@ -24,16 +24,19 @@ pros::Motor_Group rightAuton({rightFrontMotor, rightBackMotor});
 pros::Motor_Group leftAutonSmall({leftFrontMotor});
 pros::Motor_Group rightAutonSmall({rightFrontMotor});
 
-pros::Motor intakeLever(7, pros::E_MOTOR_GEAR_RED, false);
-pros::Motor flywheelMotor(4, pros::E_MOTOR_GEAR_BLUE, false);
+pros::Motor intake(10, pros::E_MOTOR_GEAR_BLUE, false);
 
-pros::ADIDigitalOut wings(1);
+pros::Motor catapult(11, pros::E_MOTOR_GEAR_RED, false);
 
-pros::Imu imu(11);
+pros::ADIDigitalOut vertWings(1);
+pros::ADIDigitalOut horiWings(2);
+pros::ADIDigitalOut hang(3);
+
+pros::Imu imu(14);
          
 lemlib::Drivetrain_t drivetrain {
-    &leftAuton,
-    &rightAuton,
+    &leftMotors,
+    &rightMotors,
     11.2, // track width
     4, // wheel diameter
     343, // wheel rpm
@@ -58,8 +61,8 @@ lemlib::OdomSensors_t sensors {
 
 // forward/backward PID
 lemlib::ChassisController_t lateralController {
-    45, // kP
-    100, // kD
+    60, // kP
+    90, // kD
     1, // smallErrorRange
     100, // smallErrorTimeout
     3, // largeErrorRange
@@ -69,8 +72,8 @@ lemlib::ChassisController_t lateralController {
  
 // turning PID
 lemlib::ChassisController_t angularController {
-    4, // kP
-    40, // kD
+    10, // kP
+    60, // kD
     1, // smallErrorRange
     100, // smallErrorTimeout
     3, // largeErrorRange
@@ -80,3 +83,4 @@ lemlib::ChassisController_t angularController {
 
 lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
 lemlib::Chassis chassisSmall(drivetrainSmall, lateralController, angularController, sensors);
+lemlib::Chassis chassis2(drivetrain, lateralController, angularController, sensors);
